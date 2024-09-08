@@ -31,6 +31,7 @@ public class TaxiService {
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         taxi.setStatus(status);
         taxiRepository.save(taxi);
+        //TODO publish a message to rabbitmq
         return taxiMapper.mapEntityToDto(taxi);
     }
 

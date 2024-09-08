@@ -1,0 +1,13 @@
+version: '3.8'
+name: taxi-fleet
+services:
+
+  postgres:
+    image: postgres:16.2
+    container_name: postgresdb
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=taxi_fleet_db
+    ports:
+      - "5432:5432"

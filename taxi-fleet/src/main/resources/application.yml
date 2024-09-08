@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: taxi-fleet
+  datasource:
+    url: jdbc:postgresql://localhost:5432/taxi_fleet_db
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 2
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TaxiController {
 
-    public static final String PATH = "/taxis/";
+    public static final String PATH = "/taxis";
 
     private final TaxiService taxiService;
 
