@@ -31,6 +31,8 @@ function NewBooking() {
       setSuccessMessage('');
     } finally {
       setTimeout(() => {
+        setBookingData({client: '', address: ''})
+        setSuccessMessage('');
         navigate("/bookings")
       }, 500)
     }

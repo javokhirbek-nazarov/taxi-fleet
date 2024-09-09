@@ -5,8 +5,8 @@ const BookingsPage = () => {
 
   return (
       <div className="container">
-        <BookingList/>
         <NewBooking/>
+        <BookingList/>
       </div>
   )
 }

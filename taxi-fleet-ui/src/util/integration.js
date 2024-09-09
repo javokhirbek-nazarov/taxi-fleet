@@ -2,7 +2,7 @@ import axios from "axios";
 
 const backendClient = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
-  timeout: 10000,
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -13,7 +13,7 @@ export const getTaxis = async () => {
   if (response.status !== 200) {
     throw new Error('Failed to fetch taxis');
   }
-  return await response.data;
+  return response.data;
 }
 
 export const changeTaxiStatus = async (id, status) => {
@@ -22,7 +22,7 @@ export const changeTaxiStatus = async (id, status) => {
   if (response.status !== 200) {
     throw new Error('Failed to change status');
   }
-  return await response.data;
+  return response.data;
 }
 
 export const getBookings = async () => {
@@ -30,7 +30,7 @@ export const getBookings = async () => {
   if (response.status !== 200) {
     throw new Error('Failed to fetch bookings');
   }
-  return await response.data;
+  return response.data;
 }
 
 export const addBooking = async (client, address) => {
@@ -39,5 +39,15 @@ export const addBooking = async (client, address) => {
   if (response.status !== 200) {
     throw new Error('Failed to add booking');
   }
-  return await response.data;
+  return response.data;
+}
+
+export const getDashboardStatisticsData = async (clientId, immediate) => {
+  console.log("Making call with id: " + clientId);
+  const response = await backendClient.get(
+      `/dashboard?clientId=${clientId}&immediate=${immediate}`)
+  if (response.status !== 200) {
+    throw new Error('Error fetching statistics info');
+  }
+  return response.data;
 }
