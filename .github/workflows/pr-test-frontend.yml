@@ -19,11 +19,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-
-      - name: Install dependencies
-        working-directory: taxi-fleet-ui/
-        run: npm install
-
-      - name: Run frontend tests
-        working-directory: taxi-fleet-ui/
-        run: npm test
+      - name: Run
+        run: |
+          cd taxi-fleet-ui/
+          npm install
+          npm test

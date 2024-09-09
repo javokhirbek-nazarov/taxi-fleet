@@ -2,7 +2,7 @@ name: Run Backend Tests
 
 on:
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build:
@@ -22,10 +22,9 @@ jobs:
 
       - name: Build with Gradle
         if: ${{ success() }}
-        uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
-        with:
-          arguments: build
-        working-directory: taxi-fleet/
+        run: |
+          cd taxi-fleet/
+          ./gradlew build
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v4
