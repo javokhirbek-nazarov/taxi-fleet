@@ -17,6 +17,10 @@ repositories {
 	mavenCentral()
 }
 
+ext{
+	testContainerVersion='1.19.1'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
@@ -27,6 +31,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.amqp:spring-rabbit-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation "org.testcontainers:postgresql:${testContainerVersion}"
+	testImplementation "org.testcontainers:junit-jupiter:${testContainerVersion}"
 }
 
 tasks.named('test') {
