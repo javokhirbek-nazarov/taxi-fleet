@@ -25,7 +25,7 @@ public class DashboardController {
         CompletableFuture<DashboardStatisticsDto> futureData = dashboardService.getDashboardInfo(
             clientId);
         if (immediate) {
-            dashboardService.notify(dashboardService.getDashboardInfoImmediate(clientId));
+            dashboardService.notifyClients(clientId);
         }
         return futureData.orTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .handle((data, ex) -> {

@@ -4,7 +4,6 @@ import booking.task.taxi_fleet.model.DashboardStatisticsDto;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,13 +21,20 @@ public class DashboardService {
         return future;
     }
 
-    public void notify(DashboardStatisticsDto data) {
+    public void notifyClients() {
+        var info = getDashboardInfoImmediate();
         for (CompletableFuture<DashboardStatisticsDto> future : clients.values()) {
             if (future != null) {
-                future.complete(data);
+                future.complete(info);
             }
         }
         clients.clear();
+    }
+
+    public void notifyClients(String clientId) {
+        var info = getDashboardInfoImmediate();
+        var client = clients.remove(clientId);
+        client.complete(info);
     }
 
     public void timeout(String clientId) {
@@ -38,7 +44,7 @@ public class DashboardService {
         }
     }
 
-    public DashboardStatisticsDto getDashboardInfoImmediate(String clientId) {
+    public DashboardStatisticsDto getDashboardInfoImmediate() {
         return new DashboardStatisticsDto(taxiService.getStatistics(),
             bookingService.getStatistics());
     }

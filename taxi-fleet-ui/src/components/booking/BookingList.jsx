@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getBookings} from "../../util/integration";
+import {getBookings} from "../../integration/api";
 import BookingListItem from "./BookingListItem";
 import {useLocation} from "react-router-dom";
 

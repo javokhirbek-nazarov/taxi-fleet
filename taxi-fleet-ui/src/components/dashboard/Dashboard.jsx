@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {getDashboardStatisticsData} from "../../util/integration";
+import {getDashboardStatisticsData} from "../../integration/api";
 import TaxiStatusStatisticsCard from "./TaxiStatusStatisticsCard";
 import BookingStatusStatisticsCard from "./BookingStatusStatisticsCard";
 import TotalCountCard from "./TotalCountCard";

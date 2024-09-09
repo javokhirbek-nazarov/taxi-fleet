@@ -43,7 +43,6 @@ export const addBooking = async (client, address) => {
 }
 
 export const getDashboardStatisticsData = async (clientId, immediate) => {
-  console.log("Making call with id: " + clientId);
   const response = await backendClient.get(
       `/dashboard?clientId=${clientId}&immediate=${immediate}`)
   if (response.status !== 200) {

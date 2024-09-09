@@ -28,7 +28,7 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<BookingDto> changeStatus(@RequestBody BookingCreateDto body) {
+    public ResponseEntity<BookingDto> create(@RequestBody BookingCreateDto body) {
         return ResponseEntity.ok(bookingService.create(body));
     }
 

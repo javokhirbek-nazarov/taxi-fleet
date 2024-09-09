@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {changeTaxiStatus} from "../../util/integration";
+import {changeTaxiStatus} from "../../integration/api";
 import {Dropdown, DropdownButton} from "react-bootstrap";
 
 function StatusDropdown({id, status}) {

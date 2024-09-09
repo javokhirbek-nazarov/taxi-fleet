@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, Button, Form} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {addBooking} from "../../util/integration";
+import {addBooking} from "../../integration/api";
 import {useNavigate} from "react-router-dom";
 
 function NewBooking() {
@@ -23,7 +23,7 @@ function NewBooking() {
     e.preventDefault();
 
     try {
-      const data = addBooking(bookingData.client, bookingData.address)
+      const data = await addBooking(bookingData.client, bookingData.address)
       setSuccessMessage('Booking successfully created!');
       setErrorMessage('');
     } catch (error) {
@@ -33,6 +33,7 @@ function NewBooking() {
       setTimeout(() => {
         setBookingData({client: '', address: ''})
         setSuccessMessage('');
+        setErrorMessage('');
         navigate("/bookings")
       }, 500)
     }

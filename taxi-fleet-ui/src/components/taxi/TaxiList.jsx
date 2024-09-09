@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import TaxiListItem from './TaxiListItem';
-import {getTaxis} from "../../util/integration";
+import {getTaxis} from "../../integration/api";
 
 function TaxiList() {
   const [taxis, setTaxis] = useState([]);

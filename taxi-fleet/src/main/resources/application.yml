@@ -17,3 +17,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: password

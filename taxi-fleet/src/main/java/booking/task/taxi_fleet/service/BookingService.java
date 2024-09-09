@@ -2,6 +2,7 @@ package booking.task.taxi_fleet.service;
 
 import booking.task.taxi_fleet.domain.Booking;
 import booking.task.taxi_fleet.domain.BookingState;
+import booking.task.taxi_fleet.messaging.producers.BookingProducer;
 import booking.task.taxi_fleet.model.BookingDto;
 import booking.task.taxi_fleet.model.BookingStatisticsDto;
 import booking.task.taxi_fleet.model.mapper.BookingMapper;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -21,6 +23,7 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
+    private final BookingProducer bookingProducer;
 
     public List<BookingDto> getAll() {
         return bookingRepository.findAll().stream()
@@ -28,6 +31,7 @@ public class BookingService {
             .collect(Collectors.toList());
     }
 
+    @Transactional
     public BookingDto create(BookingCreateDto body) {
         if (body.getClient() == null || body.getClient().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Client name is required");
@@ -41,8 +45,9 @@ public class BookingService {
         booking.setAddress(body.getAddress());
         booking.setCreatedAt(LocalDateTime.now());
         bookingRepository.save(booking);
-        //TODO: publish new booking event
-        return bookingMapper.mapEntityToDto(booking);
+        BookingDto newBooking = bookingMapper.mapEntityToDto(booking);
+        bookingProducer.onNewBooking(newBooking);
+        return newBooking;
     }
 
     public BookingStatisticsDto getStatistics() {
