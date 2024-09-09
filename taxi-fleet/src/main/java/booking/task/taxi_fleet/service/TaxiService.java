@@ -2,6 +2,7 @@ package booking.task.taxi_fleet.service;
 
 import booking.task.taxi_fleet.domain.TaxiStatus;
 import booking.task.taxi_fleet.model.TaxiDto;
+import booking.task.taxi_fleet.model.TaxiStatisticsDto;
 import booking.task.taxi_fleet.model.mapper.TaxiMapper;
 import booking.task.taxi_fleet.repository.TaxiRepository;
 import java.util.List;
@@ -33,6 +34,23 @@ public class TaxiService {
         taxiRepository.save(taxi);
         //TODO publish a message to rabbitmq
         return taxiMapper.mapEntityToDto(taxi);
+    }
+
+    public TaxiStatisticsDto getStatistics() {
+        var taxis = taxiRepository.findAll();
+        long availableCount = taxis.stream()
+            .filter(t -> TaxiStatus.AVAILABLE.equals(t.getStatus()))
+            .count();
+
+        long bookedCount = taxis.stream()
+            .filter(t -> TaxiStatus.BOOKED.equals(t.getStatus()))
+            .count();
+
+        return new TaxiStatisticsDto.Builder()
+            .availableCount(availableCount)
+            .bookedCount(bookedCount)
+            .totalCount(taxis.size())
+            .build();
     }
 
 }

@@ -3,6 +3,7 @@ package booking.task.taxi_fleet.service;
 import booking.task.taxi_fleet.domain.Booking;
 import booking.task.taxi_fleet.domain.BookingState;
 import booking.task.taxi_fleet.model.BookingDto;
+import booking.task.taxi_fleet.model.BookingStatisticsDto;
 import booking.task.taxi_fleet.model.mapper.BookingMapper;
 import booking.task.taxi_fleet.model.request.BookingCreateDto;
 import booking.task.taxi_fleet.repository.BookingRepository;
@@ -42,5 +43,22 @@ public class BookingService {
         bookingRepository.save(booking);
         //TODO: publish new booking event
         return bookingMapper.mapEntityToDto(booking);
+    }
+
+    public BookingStatisticsDto getStatistics() {
+        var bookings = bookingRepository.findAll();
+        long newCount = bookings.stream()
+            .filter(b -> BookingState.NEW.equals(b.getState()))
+            .count();
+
+        long takenCount = bookings.stream()
+            .filter(t -> BookingState.TAKEN.equals(t.getState()))
+            .count();
+
+        return new BookingStatisticsDto.Builder()
+            .newCount(newCount)
+            .takenCount(takenCount)
+            .totalCount(bookings.size())
+            .build();
     }
 }
