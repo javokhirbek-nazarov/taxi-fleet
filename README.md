@@ -2,7 +2,7 @@
 
 ## Pre conditions:
 - Should have docker installed
-- Ports **[5672, 15672, 5432]** are not in use by other applications.
+- Ports **[5672, 15672, 5432, 3000, 9001]** are not in use by other applications.
 
 ## Commands:
 `docker compose up` (as demon: `docker compose up -d `) \
