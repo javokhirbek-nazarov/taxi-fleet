@@ -1,0 +1,23 @@
+name: Run Frontend Tests
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Run
+        run: |
+          cd taxi-fleet-ui/
+          npm install
+          npm test

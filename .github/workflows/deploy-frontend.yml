@@ -1,0 +1,25 @@
+name: Deploy Frontend Image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Image
+        run: |
+          docker build -t jnazarov/taxi-fleet-ui:latest ./taxi-fleet-ui
+          docker push jnazarov/taxi-fleet-ui:latest
