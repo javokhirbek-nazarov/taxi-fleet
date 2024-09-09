@@ -20,3 +20,18 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: password
+
+  taxi-fleet-ui:
+    image: jnazarov/taxi-fleet-ui
+    container_name: taxi-fleet-ui
+    ports:
+      - "3000:3000"
+
+  taxi-fleet:
+    image: jnazarov/taxi-fleet
+    container_name: taxi-fleet
+    depends_on:
+      - postgresdb
+    restart: always
+    ports:
+      - "9001:9001"
