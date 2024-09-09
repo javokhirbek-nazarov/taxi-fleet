@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import TaxiListItem from './TaxiListItem';
-import {getTaxis} from "../util/integration";
+import {getTaxis} from "../../util/integration";
 
 function TaxiList() {
   const [taxis, setTaxis] = useState([]);
@@ -32,23 +32,23 @@ function TaxiList() {
   return (
 
       <div className="container my-5">
-      <table className="table table-hover">
-        <thead className="table-dark">
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Number</th>
-          <th scope="col">Status</th>
-          <th scope="col">Location</th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-          taxis.map((taxi) => (
-              <TaxiListItem key={taxi.id}{...taxi}/>
-          ))
-        }
-        </tbody>
-      </table>
+        <table className="table table-hover">
+          <thead className="table-dark">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Number</th>
+            <th scope="col">Location</th>
+            <th scope="col">Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          {
+            taxis.map((taxi) => (
+                <TaxiListItem key={taxi.id}{...taxi}/>
+            ))
+          }
+          </tbody>
+        </table>
       </div>
   );
 }

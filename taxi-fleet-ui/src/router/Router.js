@@ -1,24 +1,22 @@
-import TaxiList from "../components/TaxiList";
 import {createBrowserRouter} from "react-router-dom";
+import BookingsPage from "../pages/BookingsPage";
+import TaxisPage from "../pages/TaxisPage";
+import DashboardPage from "../pages/DashboardPage";
 
 const createRouter = () =>
     createBrowserRouter([
       {
-        path: "/taxis",
-        element: <TaxiList/>
+        path: "/",
+        element: <DashboardPage/>
       },
-      // {
-      //   path: "/bookinghistory/:phoneId",
-      //   element: <PhoneBookingHistory />
-      // },
-      // {
-      //   path: "/bookingform/:phoneId",
-      //   element: <BookReturnForm />
-      // },
-      // {
-      //   path: "/error",
-      //   element: <ErrorPage />
-      // },
+      {
+        path: "/taxis",
+        element: <TaxisPage/>
+      },
+      {
+        path: "/bookings",
+        element: <BookingsPage/>
+      },
     ]);
 
 export default createRouter;

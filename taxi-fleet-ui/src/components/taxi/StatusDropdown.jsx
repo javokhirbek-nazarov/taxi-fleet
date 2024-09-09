@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {changeTaxiStatus} from "../util/integration";
+import {changeTaxiStatus} from "../../util/integration";
 import {Dropdown, DropdownButton} from "react-bootstrap";
 
-function StatusBadge({id, status}) {
+function StatusDropdown({id, status}) {
 
   const getVariant = (s) => s === 'AVAILABLE' ? 'success' : 'secondary';
   const [currentStatus, setCurrentStatus] = useState(status);
@@ -27,4 +27,4 @@ function StatusBadge({id, status}) {
   );
 }
 
-export default StatusBadge;
+export default StatusDropdown;
