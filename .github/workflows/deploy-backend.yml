@@ -1,4 +1,4 @@
-name: Publish Taxi Fleet Backend Image
+name: Deploy Backend Image
 
 on:
   push:

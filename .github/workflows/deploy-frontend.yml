@@ -1,9 +1,7 @@
-name: Run Frontend Tests
+name: Deploy Frontend Image
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
 jobs:
