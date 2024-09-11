@@ -31,6 +31,8 @@ services:
     container_name: taxi-fleet-ui
     ports:
       - "3000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:9001
     networks:
       - fleet
 
@@ -42,10 +44,10 @@ services:
       - rabbitmq
     restart: always
     environment:
-      - RABBITMQ_HOST=fleet
+      - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_USER=user
       - RABBITMQ_PASSWORD=password
-      - POSTGRES_URL=jdbc:postgresql://fleet:5432/taxi_fleet_db
+      - POSTGRES_URL=jdbc:postgresql://postgres:5432/taxi_fleet_db
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
     ports:
