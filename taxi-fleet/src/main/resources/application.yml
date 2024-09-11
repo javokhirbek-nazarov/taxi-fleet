@@ -4,9 +4,9 @@ spring:
   application:
     name: taxi-fleet
   datasource:
-    url: jdbc:postgresql://localhost:5432/taxi_fleet_db
-    username: user
-    password: password
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/taxi_fleet_db}
+    username: ${POSTGRES_USER:user}
+    password: ${POSTGRES_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 3
@@ -18,7 +18,7 @@ spring:
     hibernate:
       ddl-auto: create
   rabbitmq:
-    host: localhost
+    host: ${RABBITMQ_HOST:user}
     port: 5672
-    username: user
-    password: password
+    username: ${RABBITMQ_USER:user}
+    password: ${RABBITMQ_PASSWORD:password}
