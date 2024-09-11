@@ -33,5 +33,4 @@ public class TaxiController {
         return ResponseEntity.ok(taxiService.changeStatus(id, body.getStatus()));
     }
 
-
 }
