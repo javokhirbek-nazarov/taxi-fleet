@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TaxiListener {
 
-    @RabbitListener(queues = {RabbitMqInitConfig.NEW_BOOKING_QUEUE})
+    @RabbitListener(queues = {RabbitMqInitConfig.TAXI_NEW_BOOKING_QUEUE})
     public void onNewBooking(BookingDto booking) {
-        // Here we can implement any logic to deliver new bookings to be available taxis
+        // Here each taxi gets new message about new booking
     }
 
 }

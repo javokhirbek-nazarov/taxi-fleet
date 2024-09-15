@@ -15,7 +15,7 @@ public class DashboardListener {
 
     private final DashboardService dashboardService;
 
-    @RabbitListener(queues = {RabbitMqInitConfig.NEW_BOOKING_QUEUE})
+    @RabbitListener(queues = {RabbitMqInitConfig.DASHBOARD_NEW_BOOKING_QUEUE})
     public void onNewBooking(BookingDto booking) {
         log.info("New booking created with id = {}", booking.getId());
         dashboardService.notifyClients();

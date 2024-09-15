@@ -12,9 +12,11 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMqInitConfig {
 
     public static final String TOPIC_EXCHANGE = "booking.topic-exchange";
-    public static final String NEW_BOOKING_QUEUE = "taxi.new-booking-queue";
-    public static final String NEW_BOOKING_TO_TAXIS_BINDING = "booking.new-booking";
     public static final String NEW_BOOKING_ROUTING_KEY = "booking.new-booking";
+    public static final String TAXI_NEW_BOOKING_QUEUE = "taxi.new-booking-queue";
+    public static final String NEW_BOOKING_TO_TAXIS_BINDING = "booking.new-booking";
+    public static final String DASHBOARD_NEW_BOOKING_QUEUE = "dashboard.new-booking-queue";
+    public static final String NEW_BOOKING_TO_DASHBOARD_BINDING = "booking.new-booking";
 
     @Bean
     TopicExchange bookingTopicExchange() {
@@ -24,14 +26,27 @@ public class RabbitMqInitConfig {
     }
 
     @Bean
-    Queue newBookingQueue() {
-        return new Queue(NEW_BOOKING_QUEUE, true, false, false);
+    Queue taxiNewBookingQueue() {
+        return new Queue(TAXI_NEW_BOOKING_QUEUE, true, false, false);
     }
 
     @Bean
-    Binding DLQBinding(Queue newBookingQueue, TopicExchange bookingTopicExchange) {
-        return BindingBuilder.bind(newBookingQueue)
+    Binding newBookingTaxiBinding(Queue taxiNewBookingQueue, TopicExchange bookingTopicExchange) {
+        return BindingBuilder.bind(taxiNewBookingQueue)
             .to(bookingTopicExchange)
             .with(NEW_BOOKING_TO_TAXIS_BINDING);
+    }
+
+    @Bean
+    Queue dashboardNewBooking() {
+        return new Queue(DASHBOARD_NEW_BOOKING_QUEUE, true, false, false);
+    }
+
+    @Bean
+    Binding newBookingDashboardBinding(Queue dashboardNewBooking,
+        TopicExchange bookingTopicExchange) {
+        return BindingBuilder.bind(dashboardNewBooking)
+            .to(bookingTopicExchange)
+            .with(NEW_BOOKING_TO_DASHBOARD_BINDING);
     }
 }
