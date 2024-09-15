@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import booking.task.taxi_fleet.Utils;
 import booking.task.taxi_fleet.taxi.domain.Taxi;
 import booking.task.taxi_fleet.taxi.domain.TaxiStatus;
+import booking.task.taxi_fleet.taxi.messaging.TaxiProducer;
 import booking.task.taxi_fleet.taxi.model.mapper.TaxiMapper;
 import booking.task.taxi_fleet.taxi.repository.TaxiRepository;
 import java.util.Collections;
@@ -29,6 +30,9 @@ public class TaxiServiceTest {
 
     @Mock
     private TaxiRepository taxiRepository;
+
+    @Mock
+    private TaxiProducer taxiProducer;
 
     @Spy
     private TaxiMapper taxiMapper;

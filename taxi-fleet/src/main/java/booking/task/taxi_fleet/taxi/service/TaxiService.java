@@ -1,7 +1,7 @@
 package booking.task.taxi_fleet.taxi.service;
 
-import booking.task.taxi_fleet.dashboard.service.DashboardService;
 import booking.task.taxi_fleet.taxi.domain.TaxiStatus;
+import booking.task.taxi_fleet.taxi.messaging.TaxiProducer;
 import booking.task.taxi_fleet.taxi.model.TaxiDto;
 import booking.task.taxi_fleet.taxi.model.TaxiStatisticsDto;
 import booking.task.taxi_fleet.taxi.model.mapper.TaxiMapper;
@@ -20,7 +20,7 @@ public class TaxiService {
 
     private final TaxiRepository taxiRepository;
     private final TaxiMapper taxiMapper;
-    private final DashboardService dashboardService;
+    private final TaxiProducer taxiProducer;
 
     public List<TaxiDto> getAll() {
         return taxiRepository.findAll().stream()
@@ -34,9 +34,9 @@ public class TaxiService {
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         taxi.setStatus(status);
         taxiRepository.save(taxi);
-        //TODO publish a message to rabbitmq if need be
-        dashboardService.notifyClients();
-        return taxiMapper.mapEntityToDto(taxi);
+        TaxiDto dto = taxiMapper.mapEntityToDto(taxi);
+        taxiProducer.onStatusChange(dto);
+        return dto;
     }
 
     public TaxiStatisticsDto getStatistics() {
